@@ -6,6 +6,7 @@ from itertools import chain
 
 from ADL.Utilities import *
 from ADL.QueryResults import QueryResults
+from functools import reduce
 
 castlist = list
 
@@ -60,7 +61,7 @@ def _flatten(arr):
 # 		print '_reducefx.flat:', flat
 # 		print '_reducefx.toFlatten:', toFlatten
 		# See if this index is an array that itself needs to be flattened.
-		if isList(toFlatten) and types.ListType in [type(l) for l in toFlatten]:
+		if isList(toFlatten) and list in [type(l) for l in toFlatten]:
 # 			print 'call _flatten'
 			return (flat if isList(flat) else [flat])+_flatten(toFlatten)
 		#Otherwise just add the current index to the end of the flattened array.
@@ -69,7 +70,7 @@ def _flatten(arr):
 # 			print 'else.toFlatten:', toFlatten
 			return (flat if isList(flat) else [flat])+(toFlatten if isList(toFlatten) else [toFlatten])
 	ct=0
-	while types.ListType in [type(l) for l in arr]:
+	while list in [type(l) for l in arr]:
 		if ct > 10: break;
 		arr = reduce(_reducefx, arr)
 		ct+=1
@@ -94,7 +95,7 @@ functions = {
 	"unshift" : lambda list, values: _splice(list, values, 0, 0),
 	"flatten" : lambda list: _flatten(_jsonlist(list)),
 	"empty" : lambda list: [],
-	"zip" : lambda lists: zip(*_jsonlist(lists)),
+	"zip" : lambda lists: list(zip(*_jsonlist(lists))),
 	"range" : _range,
 	"contains" : lambda list, value: value in _jsonlist(list),
 	"length" : lambda list: len(_jsonlist(list)),

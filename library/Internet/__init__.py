@@ -1,5 +1,5 @@
 from json import loads, dumps, load
-from urllib import urlencode
+from urllib.parse import urlencode
 from geventhttpclient import HTTPClient, URL, httplib
 httplib.patch()
 from ADL.Utilities import *
@@ -9,7 +9,7 @@ def _jsonlist(list):
 
 
 def _request(url, method='GET', query={}, body={}, headers={}, asjson=False):
-	print 'Logic.library.Internet._request:', url, method, query, body, headers
+	print('Logic.library.Internet._request:', url, method, query, body, headers)
 	
 	if not query: query = {};
 	if not body: body = {};
@@ -17,27 +17,27 @@ def _request(url, method='GET', query={}, body={}, headers={}, asjson=False):
 
 	def _remove_empty_params(params):
 		if not isDict(params): params = loads(params);
-		return dict([(k,v) for k,v in params.items() if v is not None])
+		return dict([(k,v) for k,v in list(params.items()) if v is not None])
 
 	query = _remove_empty_params(query)
-	print 'Logic.library.Internet._request.query:', query
+	print('Logic.library.Internet._request.query:', query)
 
 	headers = _remove_empty_params(headers)
-	print 'Logic.library.Internet._request.headers:', headers
+	print('Logic.library.Internet._request.headers:', headers)
 
 	body_str = urlencode(_remove_empty_params(body))
-	print 'Logic.library.Internet._request.body_str:', body_str
+	print('Logic.library.Internet._request.body_str:', body_str)
 
 	http_url = URL(url)
-	for k,v in query.items(): http_url[k] = v;
-	print 'Logic.library.Internet._request.http_url:', http_url
+	for k,v in list(query.items()): http_url[k] = v;
+	print('Logic.library.Internet._request.http_url:', http_url)
 
 	http = HTTPClient.from_url(http_url, connection_timeout=1000, network_timeout=1000)
-	print 'Logic.library.Internet._request -> calling'
-	print 'Logic.library.Internet._request.http:', http
+	print('Logic.library.Internet._request -> calling')
+	print('Logic.library.Internet._request.http:', http)
 	response = http.request(method, http_url.request_uri, body=body_str, headers=headers)
-	print 'Logic.library.Internet._request.response.dir:', dir(response)
-	print 'Logic.library.Internet._request.response.headers:', response.headers
+	print('Logic.library.Internet._request.response.dir:', dir(response))
+	print('Logic.library.Internet._request.response.headers:', response.headers)
 	
 	headers = dict(response.headers)
 	if 'content-type' in headers and headers['content-type'] == 'application/json' and not asjson:

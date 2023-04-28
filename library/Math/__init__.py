@@ -1,6 +1,6 @@
 from math import *
 import operator, random
-from constants import constants
+from .constants import constants
 from ADL.Utilities import *
 from json import loads, dumps
 
@@ -24,12 +24,12 @@ functions = {
 	"factorial" : lambda x: factorial(x),
 	"floor" : lambda x: floor(x),
 	"fmod" : lambda x,y: fmod(x,y),
-	"frexp" : lambda x: dict(zip(['mantissa', 'exp'], frexp(x))),
+	"frexp" : lambda x: dict(list(zip(['mantissa', 'exp'], frexp(x)))),
 	"fsum" : _fsum,
 	"isinf" : lambda x: isinf(x),
 	"isnan" : lambda x: isnan(x),
 	"ldexp" : lambda x,i: ldexp(x,i),
-	"modf" : lambda x: dict(zip(['fractional', 'integer'], modf(x))),
+	"modf" : lambda x: dict(list(zip(['fractional', 'integer'], modf(x)))),
 	"trunc" : lambda x: trunc(x),
 	"exp" : lambda x: exp(x),
 	"expm1" : lambda x: expm1(x),

@@ -37,26 +37,26 @@ class MuxDispatcher(WebUtilities, RequestHandler):
 		if fx == 'pipe': dict_key, var_key = ('pipes', args['target']);
 		elif fx == 'aggregate': dict_key, var_key = ('response', '_aggregated_');
 
-		if not args[dict_key].has_key(var_key): args[dict_key][var_key] = {};
+		if var_key not in args[dict_key]: args[dict_key][var_key] = {};
 		target = args[dict_key][var_key];
 
 # 		print 'mapping...: %s' % repr(args['map'])
-		for key in args['map'].keys():
+		for key in list(args['map'].keys()):
 # 			print '>>>key: %s' % key
 			data = QueryResults(args['map'][key], args_response).Items
 			if not data: continue;
 # 			if type(data) is not types.ListType: data = [data];
 # 			print '_aggpipe(%s).data(%s): %s' % (fx, key, repr(data))
-			if target.has_key(key):
-				if type(target[key]) is types.StringType: target[key] = [target[key]];
-				if type(data) is types.StringType: data = [data];
+			if key in target:
+				if type(target[key]) is bytes: target[key] = [target[key]];
+				if type(data) is bytes: data = [data];
 				target[key] += data;
 			else: target[key] = data;
 
 # 		print 'target : %s' % target
 		
 # 		print 'cleaning...'
-		for key in target.keys():
+		for key in list(target.keys()):
 			try:
 				if (args['op'] == 'clean' or fx == 'aggregate') and (isList(target[key]) or isTuple(target[key])):
 					target[key] = quickCleanList(target[key]);
@@ -69,7 +69,7 @@ class MuxDispatcher(WebUtilities, RequestHandler):
 	def get(self, endpoint):
 		get_t = time.time()
 		try:
-			print 'MUX.args start %0.3fms' % ((time.time()-get_t)*1000.0)
+			print('MUX.args start %0.3fms' % ((time.time()-get_t)*1000.0))
 
 # 			print('MuxDispatcher.get.endpoint: %s' % repr(endpoint), True)
 			args = wu.processRequest(endpoint, self.request.arguments)
@@ -81,22 +81,22 @@ class MuxDispatcher(WebUtilities, RequestHandler):
 			response = {}
 			pipes = {}
 
-			print 'MUX.args preargs %0.3fms' % ((time.time()-get_t)*1000.0)
+			print('MUX.args preargs %0.3fms' % ((time.time()-get_t)*1000.0))
 			
 			mux_args = simplejson.loads(args['args'])
 			for	arg in mux_args:
 				t1 = time.time()
 				try:
 # 					print('MUXCALL(%s) -> args: %s' % (arg['key'], repr(arg)), True)
-					if not arg.has_key('action_args') or arg['action_args'] is None or not isDict(arg['action_args']): arg['action_args'] = {};
+					if 'action_args' not in arg or arg['action_args'] is None or not isDict(arg['action_args']): arg['action_args'] = {};
 
 					if arg['object_type'] == 'var':
 # 						print 'var.values: %s' % arg['values']
-						if not pipes.has_key(arg['target']): pipes[arg['target']] = {};
+						if arg['target'] not in pipes: pipes[arg['target']] = {};
 						pipes[arg['target']].update(arg['values'])
 						continue
 
-					if pipes.has_key(arg['key']): arg['action_args'].update(pipes[arg['key']]);
+					if arg['key'] in pipes: arg['action_args'].update(pipes[arg['key']]);
 	# 				print '>>action_args: %s' % repr(arg['action_args'])
 	
 					obj = None
@@ -134,23 +134,23 @@ class MuxDispatcher(WebUtilities, RequestHandler):
 								})
 								getattr(self, '_%s'%action)(**response_action)
 		
-							except Exception, inst: 
-								print('do_arg_actions(%s)' % action, inst);
+							except Exception as inst: 
+								print(('do_arg_actions(%s)' % action, inst));
 # 					print 'response: %s' % repr(response)
 # 					print 'pipes: %s' % repr(pipes)
 # 					print('MUXCALL(%s) -> DONE' % arg['key'], True)
-				except Exception, inst:
+				except Exception as inst:
 					response[arg['key']] = {
 						'status' : 'error',
 						'msg' : inst.args[0]
 					}
-				print 'MUXCALL.%s took %0.3fms' % (arg['key'], (time.time()-t1)*1000.0)
+				print('MUXCALL.%s took %0.3fms' % (arg['key'], (time.time()-t1)*1000.0))
 # 
 # 			print ''
 # 			print 'response: %s' % repr(response)
 # 			print 'pipes: %s' % repr(pipes)
-			print 'MUX.args preresponse %0.3fms' % ((time.time()-get_t)*1000.0)
+			print('MUX.args preresponse %0.3fms' % ((time.time()-get_t)*1000.0))
 			self.doResponse(True, {'response' : response})
 
-		except Exception, inst: self.doResponse(False, inst.args[0])
-		print 'MUX.args took %0.3fms' % ((time.time()-get_t)*1000.0)
+		except Exception as inst: self.doResponse(False, inst.args[0])
+		print('MUX.args took %0.3fms' % ((time.time()-get_t)*1000.0))

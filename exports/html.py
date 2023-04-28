@@ -13,7 +13,7 @@ def makevar(name, value, dump=True):
 
 
 def updatevar(name, value):
-	print 'updatevar:', name, value
+	print('updatevar:', name, value)
 	if isString(name): return makevar(name, value);
 
 	var = []
@@ -42,17 +42,17 @@ def popargs(args, arg_order):
 
 
 def makeclass(obj, args, arg_order):
-	print 'makeclass:', obj, args, arg_order
+	print('makeclass:', obj, args, arg_order)
 	return 'new %s(%s)' % (obj, ', '.join(popargs(args, arg_order)))
 
 
 def makecall(obj, action, args, arg_order):
-	print 'makecall:', obj, action, args, arg_order
+	print('makecall:', obj, action, args, arg_order)
 	return '%s.%s(%s)' % (obj, action, ', '.join(popargs(args, arg_order)))
 
 
 def finalize(output, variables):
-	vars = ['debug(%s);' % k for k in variables.keys()]
+	vars = ['debug(%s);' % k for k in list(variables.keys())]
 	return '\n'.join([
 		'<html><head>',
 		'<title>Test</title>',

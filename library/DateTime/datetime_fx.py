@@ -1,6 +1,6 @@
 from datetime import date
 from datetime import datetime as _datetime
-from helpers import convert, gmt0, makedatetime, converttime
+from .helpers import convert, gmt0, makedatetime, converttime
 
 def _replace(datetime, year=None, month=None, day=None, hour=None, minute=None, second=None, microsecond=None):
 	args = {}
@@ -46,7 +46,7 @@ functions = {
 	"toordinal" : lambda date: makedatetime(date).toordinal(),
 	"weekday" : lambda date: makedatetime(date).weekday(), 			#add string outputting here
 	"isoweekday" : lambda date: makedatetime(date).isoweekday(),	#add string outputting here
-	"isocalendar" : lambda date: dict(zip(['year', 'week', 'weekday'], makedatetime(date).isocalendar())),
+	"isocalendar" : lambda date: dict(list(zip(['year', 'week', 'weekday'], makedatetime(date).isocalendar()))),
 	"readable" : _isoformat,
 	"isoformat" : _isoformat,
 	"strptime" : lambda string, format: convert(_datetime.strptime(string, format).replace(tzinfo=gmt0)),
@@ -55,18 +55,18 @@ functions = {
 
 
 if __name__ == '__main__':
-	print '\nunit tests ---- start\n----------------------------------------------'
+	print('\nunit tests ---- start\n----------------------------------------------')
 	import types
-	print 'datetime.new', functions['new'](2014, 11, 10, 12, 15, 23, 550000)
+	print('datetime.new', functions['new'](2014, 11, 10, 12, 15, 23, 550000))
 # 	print 'datetime.new', functions['new'](1, 1, 2)/1000000
-	print 'datetime.today', functions['today']()
-	print 'datetime.fromordinal', functions['fromordinal'](735613)
-	print 'datetime.isoformat', functions['isoformat'](functions['fromordinal'](735613))
-	print 'datetime.time', functions['time'](1421325296123456)
-	print 'datetime.isocalendar', functions['isocalendar'](1421280000000000)
-	print 'datetime.strptime', functions['strptime']("21/11/06 16:30", "%d/%m/%y %H:%M")
-	print 'datetime.readable', functions['readable'](functions['strptime']("21/11/06 16:30", "%d/%m/%y %H:%M"))
-	print 'datetime.strftime', functions['strftime'](1164126600000000, "%d/%m/%y %H:%M")
-	print 'datetime.replace', functions['replace'](1415577600000000, 1973, 2, 7)
+	print('datetime.today', functions['today']())
+	print('datetime.fromordinal', functions['fromordinal'](735613))
+	print('datetime.isoformat', functions['isoformat'](functions['fromordinal'](735613)))
+	print('datetime.time', functions['time'](1421325296123456))
+	print('datetime.isocalendar', functions['isocalendar'](1421280000000000))
+	print('datetime.strptime', functions['strptime']("21/11/06 16:30", "%d/%m/%y %H:%M"))
+	print('datetime.readable', functions['readable'](functions['strptime']("21/11/06 16:30", "%d/%m/%y %H:%M")))
+	print('datetime.strftime', functions['strftime'](1164126600000000, "%d/%m/%y %H:%M"))
+	print('datetime.replace', functions['replace'](1415577600000000, 1973, 2, 7))
 # 	# print functions['toordinal'](0)
 # 	print functions['new'](2015, 1, 15)

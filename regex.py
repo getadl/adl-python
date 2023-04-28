@@ -1,12 +1,12 @@
 ﻿import re
-from json import loads, dumps
+from .json import loads, dumps
 
 def replfx(matchobj):
-	print 'Logic.regex.replfx.match:', matchobj.group(1)
+	print('Logic.regex.replfx.match:', matchobj.group(1))
 	slashes = matchobj.group(2)
-	print 'Logic.regex.replfx.slashct:', len(slashes) #the number of slashes if any
+	print('Logic.regex.replfx.slashct:', len(slashes)) #the number of slashes if any
 	var = matchobj.group(3)
-	print 'Logic.regex.replfx.variable:', var #the variable name
+	print('Logic.regex.replfx.variable:', var) #the variable name
 	
 	replaced_value = dumps(values[var])
 	if replaced_value[0:1] == '"' and len(slashes):

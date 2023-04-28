@@ -14,23 +14,23 @@ class Operations(object):
 
 
 	def _handlelists(self, list):
-		if type(list) is types.StringType: list = loads(list);
-		if type(list) is not types.ListType: raise Exception('list must be ListType');
+		if type(list) is bytes: list = loads(list);
+		if type(list) is not list: raise Exception('list must be ListType');
 		return quickCleanList(list)
 
 
 	def intersect(self, list1, list2):
-		list1, list2 = map(self._handlelists, (list1, list2))
+		list1, list2 = list(map(self._handlelists, (list1, list2)))
 		return IntersectClass(list1+list2, 2).Items
 
 
 	def exclude(self, list1, list2):
-		list1, list2 = map(self._handlelists, (list1, list2))
+		list1, list2 = list(map(self._handlelists, (list1, list2)))
 		return ExclusionClass(list1, list2).Items
 
 
 	def join(self, list1, list2, clean=True):
-		list1, list2 = map(self._handlelists, (list1, list2))
+		list1, list2 = list(map(self._handlelists, (list1, list2)))
 		ret = list1+list2
 		return quickCleanList(ret) if clean else ret
 

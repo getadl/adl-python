@@ -1,9 +1,9 @@
 import types
-from arithmetic import arithmetic
-from assignment import assignment
-from comparison import comparison
-from bitwise import bitwise
-from logical import logical
+from .arithmetic import arithmetic
+from .assignment import assignment
+from .comparison import comparison
+from .bitwise import bitwise
+from .logical import logical
 
 functions = {
 	'arithmetic' : arithmetic,

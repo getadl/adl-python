@@ -1,2 +1,2 @@
-import html
-import php
+from . import html
+from . import php

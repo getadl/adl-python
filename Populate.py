@@ -1,6 +1,6 @@
-from json import dumps
+from .json import dumps
 from copy import deepcopy
-from type_checks import *
+from .type_checks import *
 from ADL.Utilities import *
 
 class Populate(object):
@@ -116,8 +116,8 @@ class Populate(object):
 			self.Indent -= 1
 			try:
 				return self.populateVar(obj['~'])
-			except Exception, inst:
-				print('populateDict', inst)
+			except Exception as inst:
+				print(('populateDict', inst))
 				return None
 # 				return obj
 	
@@ -140,7 +140,7 @@ class Populate(object):
 	def populateList(self, list):
 		self.Indent += 1
 		self.LogicClass.Console.emit(self.Indent, 'populateList:', list)
-		for i in xrange(len(list)):
+		for i in range(len(list)):
 			item = list[i]
 			self.Indent += 1
 			self.LogicClass.Console.emit(self.Indent, 'populateList.item:', item)
@@ -181,8 +181,8 @@ if __name__ == '__main__':
 		"var2" : "sup bitches"
 	}
 	
-	print 'cmd_data:', cmd['args']
+	print('cmd_data:', cmd['args'])
 	
 	populated = Populate(None, cmd['args'], data).args
 	
-	print 'populated_data:', populated
+	print('populated_data:', populated)

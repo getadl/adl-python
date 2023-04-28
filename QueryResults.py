@@ -1,5 +1,5 @@
 import itertools, types, time
-from json import loads
+from .json import loads
 from ADL.Utilities import *
 
 class QueryResults:
@@ -28,11 +28,11 @@ class QueryResults:
 # 					print '>>>fx!'
 					if isList(data): 
 # 						print 'isList'
-						try: data = map(fx, data);
+						try: data = list(map(fx, data));
 						except: pass;
 					elif isDict(data): 
 # 						print 'isDict'
-						for k in data.keys():
+						for k in list(data.keys()):
 							try: data[k] = fx(data[k]); 
 							except: pass;
 					else: 
@@ -44,7 +44,7 @@ class QueryResults:
 
 			elif acclwr == '*each':
 #  				print 'elif.each.data: %s' % repr(data)
-				if isDict(data): data = data.values();
+				if isDict(data): data = list(data.values());
 				for d in data: do(accessors, d, ret, i+1);
 
 			else:
@@ -52,8 +52,8 @@ class QueryResults:
 # 				print 'else.data: %s' % repr(data)
 				if isDict(data):
 # 					print '>>isDict'
-					if data.has_key(accessor): tmp_data = data[accessor];
-					elif data.has_key(int(accessor)): tmp_data = data[int(accessor)];
+					if accessor in data: tmp_data = data[accessor];
+					elif int(accessor) in data: tmp_data = data[int(accessor)];
 
 				elif isList(data) or isTuple(data):
 # 					print '>>isList'

@@ -1,4 +1,4 @@
-import types, urllib
+import types, urllib.request, urllib.parse, urllib.error
 from json import loads, dumps
 from copy import deepcopy
 from ADL.Utilities import *
@@ -36,10 +36,10 @@ def _addgetremove(obj, fx, key, value=None):
 functions = {
 	"has_key" : lambda obj, key: key in obj,
 	"update" : _update,
-	"keys" : lambda obj: obj.keys(),
-	"values" : lambda obj: obj.values(),
+	"keys" : lambda obj: list(obj.keys()),
+	"values" : lambda obj: list(obj.values()),
 	"contains" : _contains,
-	"querystring" : lambda obj: urllib.urlencode(dict([(k, unicode(v).encode('utf-8')) for k, v in _jsonobj(obj).items() if v is not None])),
+	"querystring" : lambda obj: urllib.parse.urlencode(dict([(k, str(v).encode('utf-8')) for k, v in list(_jsonobj(obj).items()) if v is not None])),
 	"length" : lambda obj: len(obj),
 	"add" : lambda obj, key, value: _addgetremove(obj, 'add', key, value),
 	"remove" : lambda obj, key: _addgetremove(obj, 'remove', key),

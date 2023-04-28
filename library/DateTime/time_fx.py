@@ -1,6 +1,6 @@
 from datetime import timedelta
 from datetime import time as _time
-from helpers import converttime, gmt0, makedatetime
+from .helpers import converttime, gmt0, makedatetime
 
 def _replace(time, hour=None, minute=None, second=None, microsecond=None):
 	args = {}
@@ -32,17 +32,17 @@ functions = {
 }
 
 if __name__ == '__main__':
-	print '\nunit tests ---- start\n----------------------------------------------'
-	print 'min:', functions['min']()
-	print 'max:', functions['max']()
-	print 'new:', functions['new'](12, 34, 56, 123456)
+	print('\nunit tests ---- start\n----------------------------------------------')
+	print('min:', functions['min']())
+	print('max:', functions['max']())
+	print('new:', functions['new'](12, 34, 56, 123456))
 
-	print 'hour:', functions['hour'](45296123456)
-	print 'minute:', functions['minute'](45296123456)
-	print 'second:', functions['second'](45296123456)
-	print 'microsecond:', functions['microsecond'](45296123456)
-	print 'strftime:', functions['strftime'](45296123456, "%H:%M:%S")
+	print('hour:', functions['hour'](45296123456))
+	print('minute:', functions['minute'](45296123456))
+	print('second:', functions['second'](45296123456))
+	print('microsecond:', functions['microsecond'](45296123456))
+	print('strftime:', functions['strftime'](45296123456, "%H:%M:%S"))
 
 
-	print 'isoformat:', functions['isoformat'](functions['new'](12, 34, 56, 123456))
-	print '----------------------------------------------\nunit tests ---- end'
+	print('isoformat:', functions['isoformat'](functions['new'](12, 34, 56, 123456)))
+	print('----------------------------------------------\nunit tests ---- end')

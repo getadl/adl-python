@@ -5,7 +5,7 @@ from ADL.Console import ConsoleClass
 
 import re
 from inspect import getargspec
-from json import loads, dumps
+from .json import loads, dumps
 from copy import deepcopy
 
 import ADL.library as library
@@ -15,6 +15,7 @@ from ADL.Utilities import *
 
 # this is for development only outside of the wsgi app --- start
 import md5, datetime, random, os
+from functools import reduce
 
 
 def cond_if(cmp, throw=True, **kwargs):
@@ -27,7 +28,7 @@ def cond_if(cmp, throw=True, **kwargs):
 	result = False
 	isnot = False
 
-	if cmp_type is types.ListType:
+	if cmp_type is list:
 		oper = None
 		logicclass.Indent += 1
 		for c in cmp:
@@ -59,7 +60,7 @@ def cond_if(cmp, throw=True, **kwargs):
 			logicclass.Console.emit(logicclass.Indent, 'c:', c, result)
 		logicclass.Indent -= 1
 
-	elif cmp_type is types.DictType:
+	elif cmp_type is dict:
 		result = condition(cmp)
 
 	logicclass.Console.emit(logicclass.Indent, 'cond_if.result:', result)
@@ -159,7 +160,7 @@ def loops_items(**kwargs):
 	elif isDict(items):
 		logicclass.Indent += 1
 		logicclass.Console.emit(logicclass.Indent, 'loops_items.items -> isDict')
-		for k,v in items.items():
+		for k,v in list(items.items()):
 			logicclass.Indent += 1
 			logicclass.Console.emit(logicclass.Indent, 'loops_items.items.isDict.k:', k)
 # 			print 'k,v:', k, v
@@ -186,7 +187,7 @@ def loops_times(**kwargs):
 	logicclass_do = kwargs['*logicclass']._do
 	do = kwargs['do']
 	
-	for i in xrange(int(kwargs['times'])):
+	for i in range(int(kwargs['times'])):
 		logicclass.Indent += 1
 		logicclass.Console.emit(logicclass.Indent, 'loops_times.i:', i)
 		localdata.update({'i' : i})
@@ -255,7 +256,7 @@ def loops_for(**kwargs):
 
 
 def printout(cmd):
-	print 'printout:', cmd
+	print('printout:', cmd)
 # 	print dumps(cmd)
 
 
@@ -268,7 +269,7 @@ class testclass(object):
 		return
 	
 	def test(self, **kwargs):
-		print 'testclass.test:', kwargs
+		print('testclass.test:', kwargs)
 		return kwargs
 
 
@@ -330,8 +331,8 @@ def _getDottedObject(obj, name, stack=False):
 
 
 def _setDottedObject(obj, name, value):
-	print '_setDottedObject --- start'
-	print '_setDottedObject:', obj, name, value
+	print('_setDottedObject --- start')
+	print('_setDottedObject:', obj, name, value)
 
 	if isList(name):
 		split_name = name
@@ -347,7 +348,7 @@ def _setDottedObject(obj, name, value):
 
 	setobj(obj, split_name, value)
 
-	print '_setDottedObject --- done'
+	print('_setDottedObject --- done')
 
 
 def _getAction(obj, action):
@@ -384,13 +385,13 @@ class LogicClass(object):
 		self.Errors = []
 		self.Console = ConsoleClass()
 		
-		print 'LogicClass.GlobalVariables:', self.GlobalVariables
+		print('LogicClass.GlobalVariables:', self.GlobalVariables)
 
 	def _export(self, filename, instructions, language):
-		print '_export --- start'
-		print
-		print 'instructions:', instructions
-		print
+		print('_export --- start')
+		print()
+		print('instructions:', instructions)
+		print()
 
 		self_variables = self.variables
 		output = []
@@ -406,11 +407,11 @@ class LogicClass(object):
 			events = cmd['events'] if 'events' in cmd else {}
 			cmdid = md5.new(dumps(cmd)).hexdigest()
 
-			print 'cmd(%s):' % cmdid, cmd
+			print('cmd(%s):' % cmdid, cmd)
 			try:
 				# if value is in the cmd, then this is a set variable cmd
 				if 'target' not in cmd and 'action' not in cmd and isDict(cmd):
-					for k,v in cmd.items():
+					for k,v in list(cmd.items()):
 						if k == '>':
 							if 'target' not in v:
 								output.append(updatevar(**v))
@@ -421,32 +422,32 @@ class LogicClass(object):
 								args['action'] = '__init__';
 								arg_order = _getArgOrder(args)
 								if arg_order[0] == 'self': arg_order = arg_order[1:];
-								print 'arg_order:', arg_order
-								print 'args:', args
+								print('arg_order:', arg_order)
+								print('args:', args)
 								output.append(makevar(v['name'], makeclass(v['target'], v['args'], arg_order), False))
 							else:
 								arg_order = _getArgOrder(v)
-								print 'arg_order:', arg_order
-								print 'args:', v
+								print('arg_order:', arg_order)
+								print('args:', v)
 								output.append(makevar(v['name'], makecall(v['target'], v['action'], v['args'], arg_order), False))
 							continue
 
-						print 'k, v, v.type:', k, v, type(v)
+						print('k, v, v.type:', k, v, type(v))
 						self_variables[k] = v
 						output.append(makevar(k,v))
 				else:
 					arg_order = _getArgOrder(cmd)
-					print 'arg_order:', arg_order
-					print 'args:', cmd['args']
+					print('arg_order:', arg_order)
+					print('args:', cmd['args'])
 					output.append(makecall(cmd['target'], cmd['action'], cmd['args'], arg_order))
 					
-			except Exception, inst:
-				print('_export', inst)
+			except Exception as inst:
+				print(('_export', inst))
 
-			print
+			print()
 
 # 		putFile('_exporttests/%s.%s' % (filename, language), finalize(output, self_variables))
-		print '_export --- end'
+		print('_export --- end')
 
 
 	def _do(self, instructions, localdata=None, **kwargs):
@@ -500,7 +501,7 @@ class LogicClass(object):
 					update_target.update(dict([(var_name, response)]))
 					self.Indent -= 1
 
-				elif str(variable.values().pop()).lower() != '<empty>':
+				elif str(list(variable.values()).pop()).lower() != '<empty>':
 					self.Indent += 1
 					self.Console.emit(self.Indent,  'updating the variable...')
 					update_target.update(variable)
@@ -600,7 +601,7 @@ class LogicClass(object):
 					self.Console.emit(self.Indent, 'operators.(arithmetic||assignment)(done).localdata:', localdata)
 # 					print 'operators.(arithmetic||assignment)(done).GlobalVariables:', self.GlobalVariables
 
-				except Exception, inst:
+				except Exception as inst:
 # 					print('_do', inst)
 					self.Console.emit(self.Indent, 'Exception:', inst)
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
@@ -623,7 +624,7 @@ class LogicClass(object):
 					self.Console.emit(self.Indent, 'internet.headers.len(cmd[args]):', len(cmd['args']))
 					self.Headers.update(updated_variable)
 
-				except Exception, inst:
+				except Exception as inst:
 # 					print('_do', inst)
 					self.Console.emit(self.Indent, 'Exception:', inst)
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
@@ -641,7 +642,7 @@ class LogicClass(object):
 					args['*logicclass'] = self
 					results = {'data' : action(**args)}
 					self.Console.emit(self.Indent, 'results:', results)
-				except Exception, inst:
+				except Exception as inst:
 					self.Console.emit(self.Indent, 'Exception:', inst)
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
 # 					print('_do', inst)
@@ -771,7 +772,7 @@ class LogicClass(object):
 						self._do(events_success)
 						self.Indent -= 1
 
-				except Exception, inst:
+				except Exception as inst:
 					results = {}
 					self.Console.emit(self.Indent, 'Exception:', inst)
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
@@ -817,7 +818,7 @@ class LogicClass(object):
 
 
 if __name__ == '__main__':
-	print '\nSTARTSTARTSTART\n----------------------------------------------\n'
+	print('\nSTARTSTARTSTART\n----------------------------------------------\n')
 
 	class main(LogicClass):
 		def __init__(self, filename):
@@ -835,5 +836,5 @@ if __name__ == '__main__':
 	m = main(sys.argv[1:][0])
 
 
-	print '\nm.results:', m.results
-	print '\n----------------------------------------------\nENDENDEND'
+	print('\nm.results:', m.results)
+	print('\n----------------------------------------------\nENDENDEND')

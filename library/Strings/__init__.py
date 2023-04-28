@@ -1,8 +1,8 @@
 import string as _string
 from json import loads, dumps
-from constants import constants
+from .constants import constants
 from ADL.Utilities import *
-import re, urllib
+import re, urllib.request, urllib.parse, urllib.error
 
 def _format(template, data):
 	try: data = loads(data);
@@ -37,8 +37,8 @@ functions = {
 	"startswith" : lambda word, fragment, start=None, end=None: word.startswith(fragment, start, end),
 	"endswith" :  lambda word, fragment, start=None, end=None: word.endswith(fragment, start, end),
 	"length" : lambda word: len(word),
-	"escape" : lambda word: urllib.quote(word, ''),
-	"unescape" : lambda word: urllib.unquote(word),
+	"escape" : lambda word: urllib.parse.quote(word, ''),
+	"unescape" : lambda word: urllib.parse.unquote(word),
 	"deunicode" : lambda string: deUnicodeText(string)
 }
 # 

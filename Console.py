@@ -1,4 +1,4 @@
-from json import dumps
+from .json import dumps
 from ADL.library.DateTime import functions as dt
 
 class ConsoleClass(object):
@@ -22,7 +22,7 @@ class ConsoleClass(object):
 		pkgarg = self._pkgarg
 		data = ' '.join([pkgarg(a) for a in args])
 
-		print s_indent + data
+		print(s_indent + data)
 
 		pkg = {
 			'timestamp' : dt['datetime']['strftime'](dt['datetime']['now'](), "%H:%M:%S.%f"),

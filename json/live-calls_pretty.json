@@ -1,0 +1,42 @@
+[
+    {
+        "action": "edges", 
+        "verb": "add", 
+        "target": "e29a4caefd5c376dd6df33267d475d08", 
+        "args": {
+            "id": "jasonwiener"
+        }, 
+        "events": {
+            "success": {
+                "results": {
+                    "~": "data"
+                }
+            }
+        }
+    }, 
+    {
+        "adele": "lilone", 
+        "jason": "papa", 
+        "tanja": "mama"
+    }, 
+    {
+        "action": "if", 
+        "args": {
+            "cmp": [
+                {
+                    "var": "jason", 
+                    "value": null, 
+                    "cmp": "=="
+                }, 
+                "or", 
+                "not", 
+                {
+                    "var": "tanja", 
+                    "value": null, 
+                    "cmp": "=="
+                }
+            ]
+        }, 
+        "target": "conditionals"
+    }
+]

@@ -1,0 +1,40 @@
+[
+	{ 
+		"my_data": [
+			[0, 0, 1000, 0, "6ce391e213ee0457b2833cb883ecc0bff3f9cb5e165471ca94851539"], 
+			[0, 0, 1000, 0, "9e44ccb6e94a283b852cef7d936e912058a9cf1dfa80588466eb79da"], 
+			[1, 0, 1000, 1, "1fe1c64466a79d5e18acc59cc826b5cc13ab4ecaa38f4409320d7668"], 
+			[1, 0, 1000, 1, "8f2eea8613aee9ae81e7081c2b4ac460ddce1283ebbf5b34d7bdd678"], 
+			[2, 0, 1000, 2, "3fd3702dfe6a2ed9740701f9496b93eaa0333727c31d9809f2228289"], 
+			[2, 0, 1000, 2, "fe6aae3ab6a68f84d3051126094fe960716345a7ccc9001de7167aad"], 
+			[3, 0, 1000, 3, "ffddb2984cd4258a2c88a7dcb8eb41a40d6bb04e30c5bbc62dcc823a"], 
+			[4, 0, 1000, 4, "c960cb15762ff9f82f0b07fc5d545da6037a8ac8601d1e196d04bd79"], 
+			[5, 0, 1000, 5, "1e1a36d5359f98d53cca2f63ea7ea7f5b2d9905d3446051de645fafb"] 
+		]
+	}, 
+	{
+		"ids": []
+	}, 
+	{
+		"action": "items", 
+		"args": {
+			"items" : {"~": "my_data"},
+			"do" : [
+				{
+					"action": "append", 
+					"args": {
+						"item": {"~": "item.4"}, 
+						"list": {"~": "ids"}
+					}, 
+					"target": "list/array", 
+					"events": {
+						"success": {
+							"ids": {"~": "data"}
+						}
+					}
+				}
+			]
+		}, 
+		"target": "loops"
+	}
+]

@@ -1,0 +1,32 @@
+[
+	{"username": "jasonwiener"},
+	{
+		"testobj": {
+			"hello" : "world"
+		}
+	},
+	{
+		"target": "dict/object",
+		"action": "get",
+		"args": {
+			"obj" : { "~" : "testobj" },
+			"key" : "hello"
+		}, 
+		"events": { "success": { "data" : {"~": "data"}}}
+	},
+	{
+		"target": "datetime.date",
+		"action": "today",
+		"args": {}, 
+		"events": { "success": { "today" : {"~": "data"}}}
+	},
+	{
+		"target": "datetime.date",
+		"action": "strftime",
+		"args": {
+			"date" : { "~" : "today" },
+			"format" : "%x"
+		}, 
+		"events": { "success": { "today_formatted" : {"~": "data"}}}
+	}
+]

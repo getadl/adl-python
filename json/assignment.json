@@ -1,0 +1,12 @@
+[
+	{"var1":5},
+	{"var2":3},
+	{
+		"action":"-=",
+		"target":"operators.assignment",
+		"args":{
+			"item1":{"~":"var1"},
+			"item2":{"~":"var2"}
+		}
+	}
+]

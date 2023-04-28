@@ -1,0 +1,24 @@
+[
+	{ 
+		"userdata" : {
+			"username": "jason@jasonwiener.com",
+			"services": {
+				"Twitter": {"username": null, "id": "jasonwiener"},
+				"Google": {"username": null, "id": "jason@jasonwiener.com"},
+				"Facebook": {"username": "jasonwiener", "id": "717480403"}, 
+				"LinkedIn": {"username": null, "id": null}
+			},
+			"id": "23ae18e67d60f6e732cc902c2649f6a9", 
+			"created": 1313514737
+		}
+	},
+	{
+		"target": "dict/object",
+		"action": "query",
+		"args": {
+			"obj" : { "~" : "userdata" },
+			"query" : "services:*each:id"
+		}, 
+		"events": { "success": { "data" : {"~": "data"}}}
+	}
+]

@@ -1,0 +1,44 @@
+[
+	{
+		"jason" : 40,
+		"tanja" : 35,
+		"adele" : 1
+	},
+	{
+		"target" : "operators.arithmetic",
+		"action" : "--",
+		"args" : {
+			"vr" : { "~" : "jason" }
+		}
+	},
+	{
+		">" : {
+			"name" : "adele_18",
+			"target" : "operators.arithmetic",
+			"action" : "+",
+			"args" : {
+				"vr" : { "~" : "adele" },
+				"vl" : 17
+			}
+		}
+	},
+	{
+		">" : {
+			"name" : "adele_19",
+			"target" : "operators.arithmetic",
+			"action" : "+",
+			"args" : {
+				"vr" : { "~" : "adele_18" },
+				"vl" : 1
+			}
+		}
+	},
+	{
+		"data": {
+			"hello": "world",
+			"adele_19" : { "~" : "adele_19" },
+			"tanja" : { "~" : "tanja" }
+		}, 
+		"target": "return"
+	}
+]

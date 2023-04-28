@@ -1,0 +1,26 @@
+[
+	{ "my_data": ["1", "5"] }, 
+	{"agg": ""}, 
+	{
+		"action": "items", 
+		"args": {
+			"items": {"~": "my_data"}, 
+			"do": [
+				{
+					"action": "+", 
+					"args": {
+						"item2": {"~": "item"}, 
+						"item1": {"~": "agg"}
+					}, 
+					"target": "operators.arithmetic", 
+					"events": {
+						"success": {
+							"agg": {"~": "data"}
+						}
+					}
+				}
+			]
+		}, 
+		"target": "loops"
+	}
+]

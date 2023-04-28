@@ -1,0 +1,71 @@
+[
+    {
+        "username": "jasonwiener"
+    }, 
+    {
+        "action": "upper", 
+        "args": {
+            "var": {
+                "~": "username"
+            }
+        }, 
+        "target": "utilities.string", 
+        "events": {
+            "success": {
+                "username": {
+                    "~": "data"
+                }
+            }
+        }
+    }, 
+    {
+        "action": "friends", 
+        "verb": "get", 
+        "target": "46af77ce5545d59d63a95026a2ce4d98", 
+        "args": {
+            "idtype": "service", 
+            "id": {
+                "~": "username"
+            }
+        }, 
+        "events": {
+            "success": {
+                "results": {
+                    "~": "data"
+                }
+            }
+        }
+    }, 
+    {
+        "action": "if", 
+        "args": {
+            "cmp": [
+                {
+                    "var": {
+                        "~": "results"
+                    }, 
+                    "cond": null, 
+                    "value": "", 
+                    "cmp": "!="
+                }
+            ]
+        }, 
+        "target": "conditionals", 
+        "events": {
+            "failure": [{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : "fail"
+					}
+				}], 
+            "success": [{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : "success"
+					}
+				}]
+        }
+    }
+]

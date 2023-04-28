@@ -1,0 +1,22 @@
+[
+	{
+		"thelist" : [
+			"may",
+			"the",
+			"force",
+			"be",
+			"with",
+			"you"
+		]
+	},
+	{
+		"action":"pop",
+		"target":"list/array",
+		"args":{
+			"list":{"~":"thelist"}
+		},
+		"events": { 
+			"success": { "popped" : {"~": "data"}}
+		}
+	}
+]

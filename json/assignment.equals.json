@@ -1,0 +1,1 @@
+[{"x":10},{"y":20},{"action":"=","target":"operators.assignment","args":{"item1":{"~":"x"},"item2":{"~":"y"}}}]

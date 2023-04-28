@@ -1,0 +1,23 @@
+[
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"key" : "item",
+			"items" : [
+				"item1",
+				"item2",
+				"item3"
+			],
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "item" }
+					}
+				}
+			]
+		}
+	}
+]

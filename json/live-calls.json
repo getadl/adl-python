@@ -1,0 +1,1 @@
+[{"target":"e29a4caefd5c376dd6df33267d475d08","action":"edges","verb":"add","args":{"id":"jasonwiener"},"events":{"success":{"results":{ "~":"data" }}}},{"jason":"papa","tanja":"mama","adele":"lilone"},{"target":"conditionals","action":"if","args":{"cmp":[{"var":"jason","cmp":"==","value":null},"or","not",{"var":"tanja","cmp":"==","value":null}]}}]

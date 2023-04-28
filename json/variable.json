@@ -1,0 +1,72 @@
+[
+	{
+		"dict" : {
+			"nested1key1" : {
+				"nested2key1" : {
+					"nested3key1" : "nested3value1"
+				},
+				"nested2key2" : ["1", "2", "3"]
+			}
+		},
+		"list" : ["a", "b", "c", "d"]
+	},
+	{
+		">" : {
+			"name" : ["dict", "nested1key1", "nested2key1", "nested3key1"],
+			"value" : "testdictput"
+		}
+	},
+	{
+		">" : {
+			"name" : ["list", 0],
+			"value" : "testlistput"
+		}
+	},
+	{
+		">" : {
+			"name" : ["dict", "nested1key1", "nested2key2", 1],
+			"value" : "testlistput2"
+		}
+	},
+	{
+		"target" : "utilities",
+		"action" : "print",
+		"args" : {
+			"cmd" : { "~" : "dict.nested1key1.nested2key2" }
+		}
+	},
+	{
+		"target" : "utilities",
+		"action" : "testfx",
+		"args" : {
+			"cmd" : { "~" : "dict.nested1key1.nested2key2" },
+			"abd" : "abd_value",
+			"fff" : "fff_value"
+		}
+	},
+	{
+		">" : {
+			"name" : "testfx",
+			"target" : "utilities",
+			"action" : "testfx",
+			"args" : {
+				"cmd" : { "~" : "dict.nested1key1.nested2key2" },
+				"abd" : "abd_value",
+				"fff" : "fff_value"
+			}
+		}
+	},
+	{
+		">" : {
+			"name" : ["dict", "nested1key1", "nested2key1", "nested3key1"],
+			"value" : ["dict", "nested1key1", "nested2key1", "nested3key1"]
+		}
+	},
+	{
+		"data": {
+			"hello": "world",
+			"accessedvalue" : { "~" : "dict.nested1key1.nested2key2" }
+		}, 
+		"target": "return"
+	}
+]

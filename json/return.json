@@ -1,0 +1,9 @@
+[
+    {
+        "return_val": true
+    },
+    {
+        "data": { "~": "return_val" }, 
+        "target": "return"
+    }
+]

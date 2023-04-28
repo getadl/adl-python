@@ -1,0 +1,170 @@
+[
+    {
+        "jasonwiener": "hello world"
+    }, 
+    {
+        "usernames": {
+            "~": "jasonwiener"
+        }
+    }, 
+    {
+        "action": "string", 
+        "args": {
+            "var": {
+                "~": "usernames"
+            }
+        }, 
+        "target": "utilities.cast", 
+        "events": {
+            "success": {
+                "usernames": {
+                    "~": "data"
+                }
+            }
+        }
+    }, 
+    {
+        "password": "test123"
+    }, 
+    {
+        "action": "get", 
+        "verb": "get", 
+        "target": "46af77ce5545d59d63a95026a2ce4d98", 
+        "args": {
+            "idtype": null, 
+            "id": "jasonwiener"
+        }, 
+        "events": {
+            "success": {
+                "results": {
+                    "~": "data"
+                }
+            }
+        }
+    }, 
+    {
+        "action": "if", 
+        "args": {
+            "cmp": [
+                {
+                    "var": "results", 
+                    "cond": null, 
+                    "value": "0", 
+                    "cmp": "!="
+                }
+            ]
+        }, 
+        "target": "conditionals", 
+        "events": {
+            "failure": [
+                {
+                    "action": "for", 
+                    "args": {
+                        "do": [
+                            {
+                                "paths": [
+                                    "715b84347891e1f1516eed0b8fef4091"
+                                ], 
+                                "data": {
+                                    "uuid": "17f219f59f026651a114dc99baf654f1", 
+                                    "val": null, 
+                                    "height": 32, 
+                                    "width": 120, 
+                                    "step": "Variable", 
+                                    "var": "unnamed variable", 
+                                    "x": 372, 
+                                    "type": "variable", 
+                                    "y": 69
+                                }
+                            }, 
+                            {
+                                "paths": [
+                                    "f27036dcb04c10d1515dcfd6793e92b7"
+                                ], 
+                                "data": {
+                                    "uuid": "715b84347891e1f1516eed0b8fef4091", 
+                                    "val": null, 
+                                    "height": 32, 
+                                    "width": 120, 
+                                    "step": "Variable", 
+                                    "var": "unnamed variable", 
+                                    "x": 596, 
+                                    "type": "variable", 
+                                    "y": 262
+                                }
+                            }, 
+                            {
+                                "paths": [], 
+                                "data": {
+                                    "uuid": "f27036dcb04c10d1515dcfd6793e92b7", 
+                                    "val": null, 
+                                    "height": 32, 
+                                    "width": 120, 
+                                    "step": "Variable", 
+                                    "var": "unnamed variable", 
+                                    "x": 880, 
+                                    "type": "variable", 
+                                    "y": 359
+                                }
+                            }
+                        ], 
+                        "init": {
+                            "i": 0
+                        }, 
+                        "after": {
+                            "action": "++", 
+                            "args": {
+                                "vr": {
+                                    "~": "i"
+                                }
+                            }, 
+                            "target": "operators.arithmetic"
+                        }, 
+                        "cond": {
+                            "var": {
+                                "~": "i"
+                            }, 
+                            "value": 1, 
+                            "cmp": "<"
+                        }
+                    }, 
+                    "target": "loops"
+                }
+            ], 
+            "success": [
+                {
+                    "action": "make", 
+                    "args": {
+                        "seed": "session"
+                    }, 
+                    "target": "crypto.md5", 
+                    "events": {
+                        "success": {
+                            "sessionid": {
+                                "~": "data"
+                            }
+                        }
+                    }
+                }, 
+                {
+                    "action": "add", 
+                    "verb": "post", 
+                    "target": "e29a4caefd5c376dd6df33267d475d08", 
+                    "args": {
+                        "timestamp": null, 
+                        "edge": "sessionid", 
+                        "id": "username", 
+                        "cors": null
+                    }
+                }, 
+                {
+                    "action": "get", 
+                    "verb": "post", 
+                    "target": "cd2f44cd7469fd5f4924a0e9cb272714", 
+                    "args": {}
+                }, 
+                {}
+            ]
+        }
+    }
+]

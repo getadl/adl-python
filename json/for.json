@@ -1,0 +1,125 @@
+[
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"init" : { "i" : 0 },
+			"cond" : {
+				"var" : {"~" : "i"},
+				"cmp" : "<",
+				"value" : 10
+			},
+			"after" : {
+				"target" : "operators.arithmetic",
+				"action" : "++",
+				"args" : {
+					"vr" : { "~" : "i" }
+				}
+			},
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "i" }
+					}
+				}
+			]
+		}
+	},
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"key" : "k",
+			"value" : "v",
+			"items" : {
+				"item1" : "item1val",
+				"item2" : "item2val",
+				"item3" : "item3val"
+			},
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "v" }
+					}
+				},
+				{"iterval" : { "~" : "v" }},
+				{"data" : { "~" : "v" }}
+			]
+		}
+	},
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"items" : [
+				"item1",
+				"item2",
+				"item3"
+			],
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "item" }
+					}
+				}
+			]
+		}
+	},
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"key" : "item",
+			"items" : [
+				"item1",
+				"item2",
+				"item3"
+			],
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "item" }
+					}
+				}
+			]
+		}
+	},
+	{
+		"tempvar" : 0
+	},
+	{
+		"target" : "loops",
+		"action" : "while",
+		"args" : {
+			"cond" : {
+				"var" : {"~" : "tempvar"},
+				"cmp" : "<",
+				"value" : 10
+			},
+			"do" : [
+				{
+					"target" : "operators.arithmetic",
+					"action" : "++",
+					"args" : {
+						"vr" : { "~" : "tempvar" }
+					}
+				},
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "tempvar" }
+					}
+				}
+			]
+		}
+	}
+]

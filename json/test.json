@@ -1,0 +1,10 @@
+[
+	{
+		"target": "properties",
+		"action": "hash",
+		"args": {
+			"item" : "May the force be with you, always..."
+		}, 
+		"events": { "success": { "hash" : {"~": "data"}}}
+	}
+]

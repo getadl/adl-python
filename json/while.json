@@ -1,0 +1,59 @@
+[
+    {
+        "while_val": 0
+    }, 
+    {
+        "agg": ""
+    }, 
+    {
+        "action": "while", 
+        "args": {
+            "do": [
+                {
+                    "action": "++", 
+                    "args": {
+                        "item": {
+                            "~": "while_val"
+                        }
+                    }, 
+                    "target": "operators.arithmetic"
+                }, 
+                {
+                    "action": "+", 
+                    "args": {
+                        "item2": "hello.", 
+                        "item1": {
+                            "~": "agg"
+                        }
+                    }, 
+                    "target": "operators.arithmetic", 
+                    "events": {
+                        "success": {
+                            "agg": {
+                                "~": "data"
+                            }
+                        }
+                    }
+                }
+            ], 
+            "cond": [
+                {
+                    "var": {
+                        "~": "while_val"
+                    }, 
+                    "cond": null, 
+                    "value": 5, 
+                    "cmp": "<"
+                }
+            ]
+        }, 
+        "target": "loops"
+    },
+    {
+		"target": "return",
+		"data" : {
+			"agg" : {"~":"agg"}
+		}
+	}
+    
+]

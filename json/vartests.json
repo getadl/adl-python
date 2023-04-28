@@ -1,0 +1,17 @@
+[
+	{"username": "jasonwiener"},
+	{
+		"testobj": {
+			"hello" : "world",
+			"nested" : {
+				"child" : "value"
+			}
+		}
+	},
+	{
+		">" : {
+			"name" : "testobj.nested.child",
+			"value" : "testdictput"
+		}
+	}
+]

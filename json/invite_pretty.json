@@ -1,0 +1,64 @@
+[
+    {
+        "invite": {
+            "status": "success", 
+            "now": 1413985687, 
+            "data": {
+                "pretty_date": "Yesterday at 3:29 pm", 
+                "timestamp": 1413844142, 
+                "invitee": "jasynwiener@gmail.com", 
+                "meta": {
+                    "id": "39db858c306f04f99d9f2fb0642827b89a29092f24a358c2a26cb7a6", 
+                    "accept": 12345
+                }, 
+                "inviter": "0c0e4da529453ae846f1140c55b747f8"
+            }, 
+            "took": "6.78ms"
+        }
+    }, 
+    {
+        "accept": {
+            "~": "invite.data.meta.accept"
+        }
+    }, 
+    {
+		"data": {
+			"interrupt": true
+		}, 
+		"target": "return"
+	},
+    {
+        "action": "if", 
+        "args": {
+            "cmp": [
+                {
+                    "var": {
+                        "~": "accept"
+                    }, 
+                    "cond": null, 
+                    "value": "<empty>", 
+                    "cmp": "!="
+                }
+            ]
+        }, 
+        "target": "conditionals", 
+        "events": {
+            "failure": [
+                {
+                    "data": {
+                        "valid": false
+                    }, 
+                    "target": "return"
+                }
+            ], 
+            "success": [
+                {
+                    "data": {
+                        "valid": true
+                    }, 
+                    "target": "return"
+                }
+            ]
+        }
+    }
+]

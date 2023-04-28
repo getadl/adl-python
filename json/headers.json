@@ -1,0 +1,21 @@
+[
+	{"username": "jasonwiener"},
+	{
+		"testobj": {
+			"hello" : "world"
+		}
+	},
+	{
+		"target": "internet",
+		"action": "headers",
+		"args": {
+			"headers" :  {"Content-Type": "application/json"}
+		}, 
+		"events": { "success": { "data" : {"~": "data"}}}
+	},
+	{
+		"data": "bitchin!", 
+		"target": "return"
+	}
+	
+]

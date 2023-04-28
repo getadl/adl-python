@@ -1,0 +1,65 @@
+[
+    {
+        "username": "jasonwiener"
+    }, 
+    {
+        "action": "upper", 
+        "args": {
+            "var": { "~": "username" }
+        }, 
+        "target": "utilities.string", 
+        "events": {
+            "success": {
+                "username": { "~": "data" }
+            }
+        }
+    }, 
+	{
+		"target" : "loops",
+		"action" : "items",
+		"args" : {
+			"items" : {
+				"item1" : { "~": "username" },
+				"item2" : "item2val",
+				"item3" : "item3val"
+			},
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "k" }
+					}
+				},
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "v" }
+					}
+				}
+			]
+		}
+	},
+	{
+		"target" : "loops",
+		"action" : "items",
+		"args" : {
+			"items" : [
+				"item1",
+				"item2",
+				"item3"
+			],
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "item" }
+					}
+				},
+				{ "username" : { "~" : "item" } }
+			]
+		}
+	}
+]

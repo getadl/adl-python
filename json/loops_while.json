@@ -1,0 +1,32 @@
+[
+	{
+		"tempvar" : 0
+	},
+	{
+		"target" : "loops",
+		"action" : "while",
+		"args" : {
+			"cond" : {
+				"var" : {"~" : "tempvar"},
+				"cmp" : "<",
+				"value" : 10
+			},
+			"do" : [
+				{
+					"target" : "operators.arithmetic",
+					"action" : "++",
+					"args" : {
+						"vr" : { "~" : "tempvar" }
+					}
+				},
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "tempvar" }
+					}
+				}
+			]
+		}
+	}
+]

@@ -1,0 +1,1 @@
+[{"thelist":[]},{"action":"append","target":"list/array","args":{"item":"hello","list":{"~":"thelist"}}}]

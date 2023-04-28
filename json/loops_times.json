@@ -1,0 +1,29 @@
+[
+    {
+        "username": "jasonwiener"
+    }, 
+    {
+        "action": "upper", 
+        "args": {
+            "var": { "~": "username" }
+        }, 
+        "target": "string", 
+        "events": {
+            "success": {
+                "username": { "~": "data" }
+            }
+        }
+    }, 
+	{
+		"target" : "loops",
+		"action" : "times",
+		"args" : {
+			"times" : 5,
+			"do" : [
+				{
+	                "tmp": { "~": "item" }
+				}
+			]
+		}
+	}
+]

@@ -1,0 +1,30 @@
+[
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"init" : { "i" : 0 },
+			"cond" : {
+				"var" : {"~" : "i"},
+				"cmp" : "<",
+				"value" : 10
+			},
+			"after" : {
+				"target" : "operators.arithmetic",
+				"action" : "++",
+				"args" : {
+					"vr" : { "~" : "i" }
+				}
+			},
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "i" }
+					}
+				}
+			]
+		}
+	}
+]

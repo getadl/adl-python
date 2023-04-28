@@ -1,0 +1,25 @@
+[
+	{
+		"target" : "loops",
+		"action" : "for",
+		"args" : {
+			"key" : "k",
+			"value" : "v",
+			"items" : {
+				"item1" : "item1val",
+				"item2" : "item2val",
+				"item3" : "item3val"
+			},
+			"do" : [
+				{
+					"target" : "utilities",
+					"action" : "print",
+					"args" : {
+						"cmd" : { "~" : "v" }
+					}
+				},
+				{"iterval" : { "~" : "v" }}
+			]
+		}
+	}
+]

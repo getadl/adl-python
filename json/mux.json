@@ -1,0 +1,66 @@
+[
+	{
+		"username" : "jasonwiener",
+		"password" : "test123"
+	},
+	{
+		"target" : "3bcf8da90b10a806e01a2bf3817130c4",
+		"action" : "data",
+		"args" : {
+			"id" : "users",
+			"field_params" : [
+				["username", { "~" : "username" }, "="],
+				["password", { "~" : "password" }, "="]
+			]
+		},
+		"events" : {
+			"success" : {
+				"results" : { "~" : "data" }
+			}
+		}
+	},
+	{
+		"target" : "conditionals",
+		"action" : "if",
+		"args" : {
+			"cmp" : {
+				"var" : { "~" : "results", "ops" : { "property" : "length" }},
+				"cmp" : "!=",
+				"value" : 0
+			}
+		},
+		"events" : {
+			"success" : [
+				{
+					"target" : "utilities.crypto.md5",
+					"action" : "make",
+					"args" : {
+						"seed" : "session"
+					},
+					"events" : {
+						"success" : {
+							"sessionid" : { "~" : "data" }
+						}
+					}
+				},
+				{
+					"target" : "e29a4caefd5c376dd6df33267d475d08",
+					"action" : "edges",
+					"verb" : "add",
+					"args" : {
+						"id" : { "~" : "username" },
+						"edge" : { "~" : "sessionid" }
+					}
+				},
+				{
+					"target" : "cd2f44cd7469fd5f4924a0e9cb272714",
+					"action" : "presence",
+					"verb" : "add",
+					"args" : {
+						"id" : { "~" : "sessionid" }
+					}
+				}
+			]
+		}
+	}
+]

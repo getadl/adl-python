@@ -4,8 +4,8 @@ from ADL.Utilities import *
 from ADL.Console import ConsoleClass
 
 import re
-from inspect import getargspec
-from .json import loads, dumps
+from inspect import signature
+from json import loads, dumps
 from copy import deepcopy
 
 import ADL.library as library
@@ -14,7 +14,7 @@ from ADL.Populate import Populate
 from ADL.Utilities import *
 
 # this is for development only outside of the wsgi app --- start
-import md5, datetime, random, os
+import hashlib, datetime, random, os
 from functools import reduce
 
 
@@ -360,7 +360,8 @@ def _getAction(obj, action):
 def _getArgOrder(cmd):
 	plugin = _getDottedObject(_global, cmd['target']);
 	action = _getAction(plugin, cmd['action'])
-	return getargspec(action)[0]
+	sig = signature(action)
+	return list(sig.parameters.keys())
 
 
 def isVariable(cmd):
@@ -405,7 +406,7 @@ class LogicClass(object):
 		
 		for cmd in instructions:
 			events = cmd['events'] if 'events' in cmd else {}
-			cmdid = md5.new(dumps(cmd)).hexdigest()
+			cmdid = hashlib.md5(dumps(cmd)).hexdigest()
 
 			print('cmd(%s):' % cmdid, cmd)
 			try:
@@ -457,7 +458,7 @@ class LogicClass(object):
 		for cmd in instructions:
 			self.Indent += 1
 			events = cmd['events'] if 'events' in cmd else {}
-			cmdid = md5.new(dumps(cmd)).hexdigest()
+			cmdid = hashlib.md5(dumps(cmd)).hexdigest()
 
 			self.Console.emit(self.Indent, 'CMD:', cmdid, cmd);
 # 			print 'cmd(%s).GlobalVariables:' % cmdid, self.GlobalVariables

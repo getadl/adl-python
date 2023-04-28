@@ -1,5 +1,5 @@
 import itertools, types, time
-from .json import loads
+from json import loads
 from ADL.Utilities import *
 
 class QueryResults:

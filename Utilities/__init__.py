@@ -1,4 +1,4 @@
-import bisect, cgi, inspect, operator, os, time, types, sys, hashlib, md5, random, datetime, re
+import bisect, cgi, inspect, operator, os, time, types, sys, hashlib, random, datetime, re
 from urllib.parse import urlparse, parse_qs, parse_qsl
 from urllib.parse import urlencode
 import codecs

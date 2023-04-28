@@ -1,4 +1,4 @@
-from .json import dumps
+from json import dumps
 from ADL.library.DateTime import functions as dt
 
 class ConsoleClass(object):

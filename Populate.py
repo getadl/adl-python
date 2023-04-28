@@ -1,4 +1,4 @@
-from .json import dumps
+from json import dumps
 from copy import deepcopy
 from .type_checks import *
 from ADL.Utilities import *

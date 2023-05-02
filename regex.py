@@ -1,5 +1,5 @@
 ﻿import re
-from .json import loads, dumps
+from json import loads, dumps
 
 def replfx(matchobj):
 	print('Logic.regex.replfx.match:', matchobj.group(1))

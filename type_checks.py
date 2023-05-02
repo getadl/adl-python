@@ -1,4 +1,4 @@
-import types
+
 
 def isList(data): return (type(data) is list);
 def isTuple(data): return (type(data) is tuple);

@@ -1,4 +1,4 @@
-import itertools, types
+import itertools
 
 class AggregatedResults:
 

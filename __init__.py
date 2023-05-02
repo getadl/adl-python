@@ -458,7 +458,7 @@ class LogicClass(object):
 		for cmd in instructions:
 			self.Indent += 1
 			events = cmd['events'] if 'events' in cmd else {}
-			cmdid = hashlib.md5(dumps(cmd)).hexdigest()
+			cmdid = hashlib.md5(dumps(cmd).encode('utf-8')).hexdigest()
 
 			self.Console.emit(self.Indent, 'CMD:', cmdid, cmd);
 # 			print 'cmd(%s).GlobalVariables:' % cmdid, self.GlobalVariables

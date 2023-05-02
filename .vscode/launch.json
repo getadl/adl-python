@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/__init__.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["live-calls_pretty"]
+            "args": ["for-i"]
         }
     ]
 }

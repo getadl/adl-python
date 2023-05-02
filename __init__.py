@@ -496,6 +496,7 @@ class LogicClass(object):
 					self.Console.emit(self.Indent,  'var_name:', var_name)
 					del variable['name']
 					self.Console.emit(self.Indent,  'variable:', variable)
+					# the below line calls the function while in the function.
 					response = self._do([variable])
 					self.Console.emit(self.Indent,  'calling function to set variable:', var_name)
 					self.Console.emit(self.Indent,  'response:', response)
@@ -645,6 +646,7 @@ class LogicClass(object):
 					self.Console.emit(self.Indent, 'results:', results)
 				except Exception as inst:
 					self.Console.emit(self.Indent, 'Exception:', inst)
+					cmd["args"]["*logicclass"] = repr(cmd["args"]["*logicclass"])
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
 # 					print('_do', inst)
 
@@ -776,6 +778,7 @@ class LogicClass(object):
 				except Exception as inst:
 					results = {}
 					self.Console.emit(self.Indent, 'Exception:', inst)
+					cmd["args"]["*logicclass"] = repr(cmd["args"]["*logicclass"])
 					self.Errors.append({'cmd' : dumps(cmd), 'error' : repr(inst) })
 					if 'failure' in events:
 						self.Indent += 1

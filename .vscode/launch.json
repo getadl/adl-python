@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/__init__.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["adl_loops_each"]
+            "args": ["live-calls_pretty"]
         }
     ]
 }
